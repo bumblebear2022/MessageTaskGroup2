@@ -1,19 +1,22 @@
 package by.itacademy.jd2.messagetask.domain;
 
+import by.itacademy.jd2.messagetask.dto.UserDto;
+
 import java.time.LocalDateTime;
 
 public class Message {
     private final LocalDateTime sendDateTime;
-    private final User fromWhom;
-    private final User toWhom;
+    private final UserDto fromWhom;
+    private final UserDto toWhom;
     private final String text;
 
-    public Message(LocalDateTime sendDateTime, User fromWhom, User toWhom, String text) {
+    public Message(LocalDateTime sendDateTime, UserDto fromWhom, UserDto toWhom, String text) {
         this.sendDateTime = sendDateTime;
         this.fromWhom = fromWhom;
         this.toWhom = toWhom;
         this.text = text;
     }
+
     public static MessageBuilder builder(){
         return new MessageBuilder();
     }
@@ -22,11 +25,11 @@ public class Message {
         return sendDateTime;
     }
 
-    public User getFromWhom() {
+    public UserDto getFromWhom() {
         return fromWhom;
     }
 
-    public User getToWhom() {
+    public UserDto getToWhom() {
         return toWhom;
     }
 
@@ -35,10 +38,10 @@ public class Message {
     }
 
     public static class MessageBuilder{
-        private LocalDateTime sendDateTime;
-        private User fromWhom;
-        private User toWhom;
-        private String text;
+        private  LocalDateTime sendDateTime;
+        private  UserDto fromWhom;
+        private  UserDto toWhom;
+        private  String text;
 
         private MessageBuilder() {
         }
@@ -48,12 +51,12 @@ public class Message {
             return this;
         }
 
-        public MessageBuilder setFromWhom(User fromWhom) {
+        public MessageBuilder setFromWhom(UserDto fromWhom) {
             this.fromWhom = fromWhom;
             return this;
         }
 
-        public MessageBuilder setToWhom(User toWhom) {
+        public MessageBuilder setToWhom(UserDto toWhom) {
             this.toWhom = toWhom;
             return this;
         }
