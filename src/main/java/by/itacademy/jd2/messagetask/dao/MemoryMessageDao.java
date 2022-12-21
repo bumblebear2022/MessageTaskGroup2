@@ -19,6 +19,15 @@ public class MemoryMessageDao implements IMessageDao{
 
     @Override
     public void add(Message message) {
-        toWhomMessages.computeIfAbsent(message.getToWhom().getLogin(), ()-> new ArrayList<Message>().add(message));
+        String login = message.getToWhom().getLogin();
+        List<Message> messages = toWhomMessages.get(login);
+        if(messages!=null){
+            messages.add(message);
+        }else {
+            List<Message> newMessageList = new ArrayList<>();
+            newMessageList.add(message);
+            toWhomMessages.put(login,newMessageList);
+        }
+
     }
 }

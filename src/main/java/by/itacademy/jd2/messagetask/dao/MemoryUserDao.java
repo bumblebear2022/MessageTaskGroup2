@@ -4,6 +4,7 @@ import by.itacademy.jd2.messagetask.domain.User;
 import by.itacademy.jd2.messagetask.dto.UserDto;
 
 public class MemoryUserDao implements IUserDao{
+
     @Override
     public UserDto get(String login) {
         return null;
@@ -11,7 +12,6 @@ public class MemoryUserDao implements IUserDao{
 
     @Override
     public void add(User user) {
-
     }
 
     @Override
