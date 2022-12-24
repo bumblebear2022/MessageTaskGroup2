@@ -1,4 +1,4 @@
-package by.itacademy.jd2.messagetask.controller;
+package by.itacademy.jd2.messagetask.controller.api;
 
 import by.itacademy.jd2.messagetask.dto.UserDto;
 
