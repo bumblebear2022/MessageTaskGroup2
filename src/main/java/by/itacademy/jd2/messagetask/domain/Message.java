@@ -1,20 +1,28 @@
 package by.itacademy.jd2.messagetask.domain;
 
+import by.itacademy.jd2.messagetask.dto.MessageDto;
 import by.itacademy.jd2.messagetask.dto.UserDto;
 
 import java.time.LocalDateTime;
 
 public class Message {
     private final LocalDateTime sendDateTime;
-    private final UserDto fromWhom;
-    private final UserDto toWhom;
+    private final String fromWhom;
+    private final String toWhom;
     private final String text;
 
-    public Message(LocalDateTime sendDateTime, UserDto fromWhom, UserDto toWhom, String text) {
+    public Message(LocalDateTime sendDateTime, String fromWhom, String toWhom, String text) {
         this.sendDateTime = sendDateTime;
         this.fromWhom = fromWhom;
         this.toWhom = toWhom;
         this.text = text;
+    }
+
+    public Message(MessageDto message) {
+        this.sendDateTime = LocalDateTime.now();
+        this.fromWhom = message.getFromWhom();
+        this.toWhom = message.getToWhom();
+        this.text = message.getText();
     }
 
     public static MessageBuilder builder(){
@@ -25,11 +33,11 @@ public class Message {
         return sendDateTime;
     }
 
-    public UserDto getFromWhom() {
+    public String getFromWhom() {
         return fromWhom;
     }
 
-    public UserDto getToWhom() {
+    public String getToWhom() {
         return toWhom;
     }
 
@@ -39,8 +47,8 @@ public class Message {
 
     public static class MessageBuilder{
         private  LocalDateTime sendDateTime;
-        private  UserDto fromWhom;
-        private  UserDto toWhom;
+        private  String fromWhom;
+        private  String toWhom;
         private  String text;
 
         private MessageBuilder() {
@@ -51,12 +59,12 @@ public class Message {
             return this;
         }
 
-        public MessageBuilder setFromWhom(UserDto fromWhom) {
+        public MessageBuilder setFromWhom(String fromWhom) {
             this.fromWhom = fromWhom;
             return this;
         }
 
-        public MessageBuilder setToWhom(UserDto toWhom) {
+        public MessageBuilder setToWhom(String toWhom) {
             this.toWhom = toWhom;
             return this;
         }
