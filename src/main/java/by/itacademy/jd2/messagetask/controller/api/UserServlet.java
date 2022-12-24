@@ -13,7 +13,7 @@ import java.util.Map;
     public class UserServlet  extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         Map<String, String[]> parameterMap = req.getParameterMap();
         //parse map
         // new User -> service -> dao.add

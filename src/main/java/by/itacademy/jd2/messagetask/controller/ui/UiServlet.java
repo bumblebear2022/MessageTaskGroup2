@@ -12,11 +12,8 @@ import java.util.regex.Pattern;
 public class UiServlet extends HttpServlet {
 
     private static final Pattern SIGN_UP_PATTERN = Pattern.compile("^/ui/signUp$");
-
     private static final Pattern SIGN_IN_PATTERN = Pattern.compile("^/ui/signIn$");
-
     private static final Pattern USER_MESSAGE_PATTERN = Pattern.compile("^/ui/user/message$");
-
     private static final Pattern USER_CHATS_PATTERN = Pattern.compile("^/ui/user/chats$");
 
 

@@ -1,4 +1,4 @@
-package by.itacademy.jd2.messagetask.dao.fabrics;
+package by.itacademy.jd2.messagetask.dao.factories;
 
 import by.itacademy.jd2.messagetask.dao.MemoryMessageDao;
 import by.itacademy.jd2.messagetask.dao.api.IMessageDao;
