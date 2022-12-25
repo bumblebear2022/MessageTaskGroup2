@@ -3,10 +3,10 @@ package by.itacademy.jd2.messagetask.controller.api;
 import by.itacademy.jd2.messagetask.domain.Message;
 import by.itacademy.jd2.messagetask.dto.MessageDto;
 import by.itacademy.jd2.messagetask.dto.UserDto;
-import by.itacademy.jd2.messagetask.service.UserService;
 import by.itacademy.jd2.messagetask.service.api.IMessageService;
 import by.itacademy.jd2.messagetask.service.api.IUserService;
-import by.itacademy.jd2.messagetask.service.fabrics.MessageServiceSingleton;
+import by.itacademy.jd2.messagetask.service.factories.MessageServiceSingleton;
+import by.itacademy.jd2.messagetask.service.factories.UserServiceSingleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,7 @@ import java.util.List;
 
     private final IMessageService messageService = MessageServiceSingleton.getInstance();
 
-    private final IUserService userService = new UserService();
+    private final IUserService userService = UserServiceSingleton.getINSTANCE();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,7 +66,7 @@ import java.util.List;
         String text = req.getParameter("Text");
         String forWhom = req.getParameter("To");
         if (text != null && forWhom != null) {
-            if (userService.checkUser(forWhom)) {
+            if (userService.exist(forWhom)) {
                 messageService.add(new MessageDto(user.getLogin(), forWhom, text));
                 writer.write("<br><span style='color: MidnightBlue;'> Ваше сообщение отправлено! </span><br>");
             } else {

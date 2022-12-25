@@ -1,7 +1,6 @@
-package by.itacademy.jd2.messagetask.service.fabrics;
+package by.itacademy.jd2.messagetask.service.factories;
 
-import by.itacademy.jd2.messagetask.dao.MemoryMessageDao;
-import by.itacademy.jd2.messagetask.dao.fabrics.MemoryMessageDaoSingleton;
+import by.itacademy.jd2.messagetask.dao.factories.MemoryMessageDaoSingleton;
 import by.itacademy.jd2.messagetask.service.MessageService;
 
 public class MessageServiceSingleton {

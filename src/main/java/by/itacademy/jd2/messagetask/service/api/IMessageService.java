@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IMessageService {
 
-    public List<Message> get(String s);
+    List<Message> get(String s);
 
-    public void add(MessageDto message);
+    void add(MessageDto message);
 }
