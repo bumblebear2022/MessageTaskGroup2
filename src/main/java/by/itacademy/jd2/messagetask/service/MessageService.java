@@ -22,4 +22,10 @@ public class MessageService implements IMessageService {
     public void add(MessageDto message){
         dao.add(new Message(message));
     }
+
+
+    @Override
+    public int userQuantity() {
+        return dao.messageQuantity();
+    }
 }

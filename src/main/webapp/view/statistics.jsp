@@ -1,16 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bumblebear
-  Date: 12/21/2022
-  Time: 7:25 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Statistics</title>
 </head>
 <body>
-
+<p>Registered users: ${statistics.registeredUsers}</p>
+<p>Active users: ${statistics.activeUsers}</p>
+<p>Message quantity: ${statistics.messageQuantity}</p>
 </body>
 </html>
+

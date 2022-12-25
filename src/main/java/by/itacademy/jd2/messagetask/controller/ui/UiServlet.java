@@ -1,6 +1,9 @@
 package by.itacademy.jd2.messagetask.controller.ui;
 
 import by.itacademy.jd2.messagetask.domain.Message;
+import by.itacademy.jd2.messagetask.dto.StatisticsDto;
+import by.itacademy.jd2.messagetask.service.api.IStatisticsService;
+import by.itacademy.jd2.messagetask.service.factories.StatisticsServiceSingleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +25,7 @@ public class UiServlet extends HttpServlet {
     private static final Pattern USER_CHATS_PATTERN = Pattern.compile("^/ui/user/chats$");
     private static final Pattern ADMIN_STATISTICS_PATTERN = Pattern.compile("^/ui/admin/statistics$");
 
+    private final IStatisticsService statisticsService = StatisticsServiceSingleton.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         ViewPage viewPage = parseURI(req.getRequestURI(),req.getContextPath());
@@ -46,6 +50,8 @@ public class UiServlet extends HttpServlet {
                     req.getRequestDispatcher("/view/chats.jsp").forward(req, resp);
                 }
                 case ADMIN_STATISTICS: {
+                    StatisticsDto statistics = statisticsService.getStatistics();
+                    req.setAttribute("statistics", statistics);
                     req.getRequestDispatcher("/view/statistics.jsp").forward(req, resp);
                 }
                 case WELCOME: {

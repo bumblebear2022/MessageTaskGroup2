@@ -10,4 +10,6 @@ public interface IMessageService {
     List<Message> get(String s);
 
     void add(MessageDto message);
+
+    int userQuantity();
 }

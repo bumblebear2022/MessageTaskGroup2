@@ -2,20 +2,21 @@ package by.itacademy.jd2.messagetask.service.factories;
 
 import by.itacademy.jd2.messagetask.dao.factories.MemoryMessageDaoSingleton;
 import by.itacademy.jd2.messagetask.service.MessageService;
+import by.itacademy.jd2.messagetask.service.api.IMessageService;
 
 public class MessageServiceSingleton {
-    private volatile static MessageService instance;
+    private volatile static MessageService INSTANCE;
 
     private MessageServiceSingleton() {}
 
-    public static MessageService getInstance() {
-        if(instance == null){
+    public static IMessageService getInstance() {
+        if(INSTANCE == null){
             synchronized (MessageService.class){
-                if(instance == null){
-                    instance = new MessageService(MemoryMessageDaoSingleton.getInstance());
+                if(INSTANCE == null){
+                    INSTANCE = new MessageService(MemoryMessageDaoSingleton.getInstance());
                 }
             }
         }
-        return instance;
+        return INSTANCE;
     }
 }
