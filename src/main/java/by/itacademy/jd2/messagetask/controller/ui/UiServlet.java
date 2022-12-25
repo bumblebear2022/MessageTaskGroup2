@@ -1,11 +1,16 @@
 package by.itacademy.jd2.messagetask.controller.ui;
 
+import by.itacademy.jd2.messagetask.domain.Message;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @WebServlet(name = "UiServlet", urlPatterns = "/ui/*")
@@ -29,7 +34,13 @@ public class UiServlet extends HttpServlet {
                     req.getRequestDispatcher("/view/signIn.jsp").forward(req, resp);
                 }
                 case USER_MESSAGE: {
-                    req.getRequestDispatcher("/view/message.jsp").forward(req, resp);
+                    Message message1 = new Message(LocalDateTime.now(), "admin1", "admin1", "1test text");
+                    Message message2 = new Message(LocalDateTime.now(), "admin2", "admin2", "2test text");
+                    List<Message> messages = new ArrayList<>();
+                    messages.add(message1);messages.add(message2);
+                    req.setAttribute("messages", messages);
+
+                    req.getRequestDispatcher("/view/testMessage.jsp").forward(req, resp);
                 }
                 case USER_CHATS: {
                     req.getRequestDispatcher("/view/chats.jsp").forward(req, resp);
