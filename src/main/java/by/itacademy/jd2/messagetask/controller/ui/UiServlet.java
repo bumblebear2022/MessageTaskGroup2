@@ -10,16 +10,16 @@ import java.util.regex.Pattern;
 
 @WebServlet(name = "UiServlet", urlPatterns = "/ui/*")
 public class UiServlet extends HttpServlet {
-
+    private static final Pattern WELCOME_PATTERN = Pattern.compile("^/ui$");
     private static final Pattern SIGN_UP_PATTERN = Pattern.compile("^/ui/signUp$");
     private static final Pattern SIGN_IN_PATTERN = Pattern.compile("^/ui/signIn$");
     private static final Pattern USER_MESSAGE_PATTERN = Pattern.compile("^/ui/user/message$");
     private static final Pattern USER_CHATS_PATTERN = Pattern.compile("^/ui/user/chats$");
-
+    private static final Pattern ADMIN_STATISTICS_PATTERN = Pattern.compile("^/ui/admin/statistics$");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        ViewPage viewPage = parseURI(req.getRequestURI());
+        ViewPage viewPage = parseURI(req.getRequestURI(),req.getContextPath());
         try {
             switch (viewPage) {
                 case SIGN_UP: {
@@ -34,6 +34,12 @@ public class UiServlet extends HttpServlet {
                 case USER_CHATS: {
                     req.getRequestDispatcher("/view/chats.jsp").forward(req, resp);
                 }
+                case ADMIN_STATISTICS: {
+                    req.getRequestDispatcher("/view/statistics.jsp").forward(req, resp);
+                }
+                case WELCOME: {
+                    req.getRequestDispatcher("/view/welcome.jsp").forward(req, resp);
+                }
             }
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -43,23 +49,32 @@ public class UiServlet extends HttpServlet {
     }
 
 
-    private ViewPage parseURI(String uri) {
+    private ViewPage parseURI(String uri,String contextPath) {
+        String endpoint = uri.replace(contextPath,"");
 
-        boolean signUp = SIGN_UP_PATTERN.matcher(uri).matches();
+        boolean welcome = WELCOME_PATTERN.matcher(endpoint).matches();
+        if (welcome) {
+            return ViewPage.WELCOME;
+        }
+        boolean signUp = SIGN_UP_PATTERN.matcher(endpoint).matches();
         if (signUp) {
             return ViewPage.SIGN_UP;
         }
-        boolean signIn = SIGN_IN_PATTERN.matcher(uri).matches();
+        boolean signIn = SIGN_IN_PATTERN.matcher(endpoint).matches();
         if (signIn) {
             return ViewPage.SIGN_IN;
         }
-        boolean userMessage = USER_MESSAGE_PATTERN.matcher(uri).matches();
+        boolean userMessage = USER_MESSAGE_PATTERN.matcher(endpoint).matches();
         if (userMessage) {
             return ViewPage.USER_MESSAGE;
         }
-        boolean userChats = USER_CHATS_PATTERN.matcher(uri).matches();
+        boolean userChats = USER_CHATS_PATTERN.matcher(endpoint).matches();
         if (userChats) {
             return ViewPage.USER_CHATS;
+        }
+        boolean adminStatistics = ADMIN_STATISTICS_PATTERN.matcher(endpoint).matches();
+        if (adminStatistics) {
+            return ViewPage.ADMIN_STATISTICS;
         }
         throw new IllegalStateException();
     }
