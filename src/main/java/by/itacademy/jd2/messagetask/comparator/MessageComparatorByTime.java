@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class MessageComparatorByTime implements Comparator<Message> {
     @Override
     public int compare(Message o1, Message o2) {
-        return o1.getSendDateTime().compareTo(o2.getSendDateTime());
+        return o2.getSendDateTime().compareTo(o1.getSendDateTime());
     }
 }

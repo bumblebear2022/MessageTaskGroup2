@@ -44,13 +44,7 @@ public class UiServlet extends HttpServlet {
                     req.getRequestDispatcher("/view/signIn.jsp").forward(req, resp);
                 }
                 case USER_MESSAGE: {
-                    Message message1 = new Message(LocalDateTime.now(), "admin1", "admin1", "1test text");
-
-                    List<Message> messages = new ArrayList<>();
-                    messages.add(message1);
-                    req.setAttribute("messages", messages);
-
-                    req.getRequestDispatcher("/view/testMessage.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/view/message.jsp").forward(req, resp);
                 }
                 case USER_CHATS: {
                     UserDto user = (UserDto) req.getSession().getAttribute("user");
