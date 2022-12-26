@@ -3,8 +3,6 @@ package by.itacademy.jd2.messagetask.controller.api;
 import by.itacademy.jd2.messagetask.dto.UserDto;
 import by.itacademy.jd2.messagetask.service.api.IUserService;
 import by.itacademy.jd2.messagetask.service.factories.UserServiceSingleton;
-
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,10 +41,9 @@ public class LoginServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         try {
-            req.getRequestDispatcher("/view/welcome.jsp").forward(req, resp);
-        } catch (ServletException | IOException e) {
+            resp.sendRedirect(req.getContextPath()+"/ui");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

@@ -5,7 +5,8 @@
 </head>
 
 <body>
-<form method="post" action="/login">
+<form method="post" action="${pageContext.request.contextPath}/api/login">
+    <h1>Please, Log In: </h1>
 
     <label for="userLogin">Login:</label>
     <input id="userLogin" type="text" name="login" >
