@@ -11,4 +11,5 @@ public interface IUserDao extends Dao {
     boolean exist(String login);
     UserDto validateUser (String login, String password);
     void delete(String login);
+    boolean isAuthenticated(String login, String password);
 }

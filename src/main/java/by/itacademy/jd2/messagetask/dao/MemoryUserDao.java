@@ -60,6 +60,13 @@ public class MemoryUserDao implements IUserDao {
     }
 
     @Override
+    public boolean isAuthenticated(String login, String password) {
+        User user = userMap.get(login);
+        String actualPassword = user.getPassword();
+        return actualPassword.equals(password);
+    }
+
+    @Override
     public void delete(String login) {
         userMap.remove(login);
     }
