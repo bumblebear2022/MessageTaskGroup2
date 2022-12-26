@@ -14,6 +14,8 @@
     <label for="userPassword">Password:</label>
     <input id="userPassword" type="password" name="password">
 
+    <input type="hidden" name="ui" value="show">
+
     <button style="margin-top: 20px" type="submit">LogIn</button>
 </form>
 </body>

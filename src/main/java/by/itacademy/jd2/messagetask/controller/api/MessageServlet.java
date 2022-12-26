@@ -66,7 +66,7 @@ import java.util.List;
         String text = req.getParameter("Text");
         String forWhom = req.getParameter("To");
         if (text != null && forWhom != null) {
-            if (userService.validate(forWhom)) {
+            if (userService.exist(forWhom)) {
                 messageService.add(new MessageDto(user.getLogin(), forWhom, text));
                 writer.write("<br><span style='color: MidnightBlue;'> Ваше сообщение отправлено! </span><br>");
             } else {

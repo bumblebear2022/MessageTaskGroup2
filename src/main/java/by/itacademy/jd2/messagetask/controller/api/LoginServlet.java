@@ -20,6 +20,7 @@ public class LoginServlet extends HttpServlet {
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     public static final String TAB = ",  ";
+    public static final String UI = "ui";
     private final IUserService userService = UserServiceSingleton.getINSTANCE();
 
 
@@ -28,19 +29,23 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         String login = req.getParameter(LOGIN);
         String password = req.getParameter(PASSWORD);
+        String isUi = req.getParameter(UI);
         try {
             PrintWriter writer = resp.getWriter();
-            if (login == null || password == null) {
+            if (login.isBlank() || password.isBlank()) {
                 writer.write("Please input both parameters");
-            }else {
-                UserDto userDto =  userService.get(login, password);
+            } else {
+                UserDto userDto = userService.get(login, password);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", userDto);
+                if (isUi != null) {
+                    resp.sendRedirect(req.getContextPath() + "/ui");
+                }
             }
-            resp.sendRedirect(req.getContextPath() + "/ui");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }catch (UserValidateException e){
+        } catch (UserValidateException e) {
             List<String> userExceptionList = e.getUserExceptionList();
             String voteExceptions = String.join(TAB, userExceptionList);
             resp.sendError(HttpServletResponse.SC_EXPECTATION_FAILED, voteExceptions);

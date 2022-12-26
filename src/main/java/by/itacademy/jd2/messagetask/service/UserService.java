@@ -8,7 +8,6 @@ import by.itacademy.jd2.messagetask.dto.UserDtoWithoutDate;
 import by.itacademy.jd2.messagetask.exceptions.UserValidateException;
 import by.itacademy.jd2.messagetask.service.api.IUserService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 public class UserService implements IUserService {
 
 
-    public static final String USER_NOT_EXIST = "User not exist";
+    public static final String USER_NOT_EXIST = "User not exist: ";
     public static final String INCORRECT_PASSWORD_FOR_USER = "Incorrect password for User: ";
     private final IUserDao userDao;
 
@@ -26,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto get(String login, String password) {
-        validate(login);
+        validate(login,password);
         return userDao.validateUser(login, password);
     }
 
@@ -36,19 +35,24 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean validate(String login) {
+    public boolean validate(String login,String password) {
         List<String> errors = new ArrayList<>();
         boolean isUserExist = userDao.exist(login);
         if (!isUserExist) {
             errors.add(USER_NOT_EXIST + login);
         }
-        boolean isAuthenticated = userDao.isAuthenticated(login, "password");
+        boolean isAuthenticated = userDao.isAuthenticated(login, password);
         if (!isAuthenticated) {
             errors.add(INCORRECT_PASSWORD_FOR_USER + login);
         }
         if (!errors.isEmpty()) {
             throw new UserValidateException(errors);
         }else return true;
+    }
+
+    @Override
+    public boolean exist(String login){
+        return userDao.exist(login);
     }
 
     @Override

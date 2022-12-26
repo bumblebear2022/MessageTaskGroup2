@@ -62,8 +62,8 @@ public class MemoryUserDao implements IUserDao {
     @Override
     public boolean isAuthenticated(String login, String password) {
         User user = userMap.get(login);
-        String actualPassword = user.getPassword();
-        return actualPassword.equals(password);
+        String actualPassword = (user!=null) ? user.getPassword():null;
+        return password.equals(actualPassword);
     }
 
     @Override
