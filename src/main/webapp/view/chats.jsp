@@ -6,32 +6,17 @@
 </head>
 <body>
 <h1>Полученные сообщения:<h1><br/>
-<%
-    PrintWriter writer = resp.getWriter();
-    List<Message> list = MessageServiceSingleton.getInstance().get((UserDto)req.getSession().getAttribute("user").getLogin());
-    if (list != null) {
-        int counter = 1;
-        for (Message p : list) {
-            writer.write("<br><span style='color: MidnightBlue;'>"
-                + counter + ".  "
-                + p.getSendDateTime().getMinute()
-                + ":"
-                + p.getSendDateTime().getSecond()
-                + "</span><br>"
-            );
-            writer.write("<br><span style='color: MidnightBlue;'>Сообщение от "
-                + p.getFromWhom()
-                + "</span><br>"
-            );
-            writer.write("<br><span style='color: MidnightBlue;'>Сообщение от "
-                + p.getText()
-                + "</span><br>"
-            );
-            ++counter;
-        }
-    } else {
-        writer.write("<br><span style='color: MidnightBlue;'> У вас пока нет входящих сообщений </span><br>");
-    }
- %>
+<c:choose>
+  <c:when test="${empty messages}">
+    <p>You have no messages yet)</p>
+  </c:when>
+  <c:otherwise>
+   <c:forEach items="${messages}" var="message">
+       <p>${message.sendDateTime}</p>
+       <p>Message from: ${message.fromWhom}</p>
+       <p> - ${message.text}</p>
+   </c:forEach>
+  </c:otherwise>
+</c:choose>
 </body>
 </html>
