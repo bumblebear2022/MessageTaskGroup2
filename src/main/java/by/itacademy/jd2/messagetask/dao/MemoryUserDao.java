@@ -24,6 +24,15 @@ public class MemoryUserDao implements IUserDao {
                 .setUserRole(UserRole.ADMIN)
                 .build();
         userMap.put(ADMIN,admin);
+        User test = User.builder()
+                .setLogin("test")
+                .setPassword("test")
+                .setFullName("test")
+                .setBirthDate(null)
+                .setRegisterDate(null)
+                .setUserRole(UserRole.USER)
+                .build();
+        userMap.put("test",test);
     }
 
     @Override
@@ -57,6 +66,13 @@ public class MemoryUserDao implements IUserDao {
         return isValidated
                 ? userDto
                 : null;
+    }
+
+    @Override
+    public boolean isAuthenticated(String login, String password) {
+        User user = userMap.get(login);
+        String actualPassword = (user!=null) ? user.getPassword():null;
+        return password.equals(actualPassword);
     }
 
     @Override

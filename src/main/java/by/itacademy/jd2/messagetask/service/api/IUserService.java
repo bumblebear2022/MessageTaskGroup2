@@ -9,6 +9,8 @@ public interface IUserService {
 
     int userQuantity();
 
+    boolean validate(String login, String password);
+
     boolean exist(String login);
 
     void add(UserDtoWithoutDate userDtoWithoutDate);
