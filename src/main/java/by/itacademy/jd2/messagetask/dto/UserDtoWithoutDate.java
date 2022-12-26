@@ -12,12 +12,12 @@ public class UserDtoWithoutDate {
     private final UserRole userRole;
 
 
-    public UserDtoWithoutDate(String login, String password, String fullName, LocalDate birthDate, UserRole userRole) {
+    public UserDtoWithoutDate(String login, String password, String fullName, LocalDate birthDate) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
         this.birthDate = birthDate;
-        this.userRole = userRole;
+        this.userRole = UserRole.USER;
     }
 
     public String getLogin() {

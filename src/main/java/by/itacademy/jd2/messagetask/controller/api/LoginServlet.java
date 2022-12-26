@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
                 UserDto userDto = userService.get(login, password);
                 HttpSession session = req.getSession();
                 session.setAttribute("user", userDto);
-                if (isUi != null) {
+                if (!isUi.isBlank()) {
                     resp.sendRedirect(req.getContextPath() + "/ui");
                 }
             }

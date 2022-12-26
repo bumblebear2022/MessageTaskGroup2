@@ -24,6 +24,15 @@ public class MemoryUserDao implements IUserDao {
                 .setUserRole(UserRole.ADMIN)
                 .build();
         userMap.put(ADMIN,admin);
+        User test = User.builder()
+                .setLogin("test")
+                .setPassword("test")
+                .setFullName("test")
+                .setBirthDate(null)
+                .setRegisterDate(null)
+                .setUserRole(UserRole.USER)
+                .build();
+        userMap.put("test",test);
     }
 
     @Override

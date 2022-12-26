@@ -39,9 +39,9 @@ public class UiServlet extends HttpServlet {
                 }
                 case USER_MESSAGE: {
                     Message message1 = new Message(LocalDateTime.now(), "admin1", "admin1", "1test text");
-                    Message message2 = new Message(LocalDateTime.now(), "admin2", "admin2", "2test text");
+
                     List<Message> messages = new ArrayList<>();
-                    messages.add(message1);messages.add(message2);
+                    messages.add(message1);
                     req.setAttribute("messages", messages);
 
                     req.getRequestDispatcher("/view/testMessage.jsp").forward(req, resp);
