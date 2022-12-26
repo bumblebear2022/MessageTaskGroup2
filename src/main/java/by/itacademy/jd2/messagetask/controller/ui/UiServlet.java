@@ -1,8 +1,12 @@
 package by.itacademy.jd2.messagetask.controller.ui;
 
+import by.itacademy.jd2.messagetask.comparator.MessageComparatorByTime;
 import by.itacademy.jd2.messagetask.domain.Message;
 import by.itacademy.jd2.messagetask.dto.StatisticsDto;
+import by.itacademy.jd2.messagetask.dto.UserDto;
+import by.itacademy.jd2.messagetask.service.api.IMessageService;
 import by.itacademy.jd2.messagetask.service.api.IStatisticsService;
+import by.itacademy.jd2.messagetask.service.factories.MessageServiceSingleton;
 import by.itacademy.jd2.messagetask.service.factories.StatisticsServiceSingleton;
 
 import javax.servlet.ServletException;
@@ -26,6 +30,8 @@ public class UiServlet extends HttpServlet {
     private static final Pattern ADMIN_STATISTICS_PATTERN = Pattern.compile("^/ui/admin/statistics$");
 
     private final IStatisticsService statisticsService = StatisticsServiceSingleton.getInstance();
+
+    private final IMessageService messageService = MessageServiceSingleton.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         ViewPage viewPage = parseURI(req.getRequestURI(),req.getContextPath());
@@ -47,6 +53,12 @@ public class UiServlet extends HttpServlet {
                     req.getRequestDispatcher("/view/testMessage.jsp").forward(req, resp);
                 }
                 case USER_CHATS: {
+                    UserDto user = (UserDto) req.getSession().getAttribute("user");
+                    List<Message> list = messageService.get(user.getLogin());
+                    if (list != null) {
+                        list.sort(new MessageComparatorByTime());
+                    }
+                    req.setAttribute("messages", list);
                     req.getRequestDispatcher("/view/chats.jsp").forward(req, resp);
                 }
                 case ADMIN_STATISTICS: {
@@ -58,9 +70,7 @@ public class UiServlet extends HttpServlet {
                     req.getRequestDispatcher("/view/welcome.jsp").forward(req, resp);
                 }
             }
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }
