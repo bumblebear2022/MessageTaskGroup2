@@ -50,7 +50,7 @@ import java.util.List;
                 ++counter;
             }
         } else {
-            writer.write("<br><span style='color: MidnightBlue;'> У вас пока нет входящих сообщений </span><br>");
+            writer.write("<br><span style='color: MidnightBlue;'> You have no messages yet </span><br>");
         }
     }
 
@@ -66,24 +66,24 @@ import java.util.List;
             if (text != null && forWhom != null) {
                 if (userService.exist(forWhom)) {
                     messageService.add(new MessageDto(user.getLogin(), forWhom, text));
-                    session.setAttribute("messageLock", "Ваше сообщение отправлено!");
+                    session.setAttribute("messageLock", "Message have been sent!");
                 } else {
-                    session.setAttribute("messageLock", "Пользователя не существует!");
+                    session.setAttribute("messageLock", "Invalid user name!");
                 }
             } else {
-                session.setAttribute("messageLock", "Не хватает данных о получателе или тексте сообщения!");
+                session.setAttribute("messageLock", "You need to fill all the points!");
             }
             req.getRequestDispatcher("/view/message.jsp").forward(req, resp);
         } else {
             if (text != null && forWhom != null) {
                 if (userService.exist(forWhom)) {
                     messageService.add(new MessageDto(user.getLogin(), forWhom, text));
-                    writer.write("<br><span style='color: MidnightBlue;'> Ваше сообщение отправлено! </span><br>");
+                    writer.write("<br><span style='color: MidnightBlue;'> Message have been sent! </span><br>");
                 } else {
-                    writer.write("<br><span style='color: MidnightBlue;'> Пользователя не существует! </span><br>");
+                    writer.write("<br><span style='color: MidnightBlue;'> Invalid user name! </span><br>");
                 }
             } else {
-                writer.write("<br><span style='color: MidnightBlue;'> Не хватает данных о получателе или тексте сообщения! </span><br>");
+                writer.write("<br><span style='color: MidnightBlue;'> You need to fill all the points!! </span><br>");
             }
         }
     }
