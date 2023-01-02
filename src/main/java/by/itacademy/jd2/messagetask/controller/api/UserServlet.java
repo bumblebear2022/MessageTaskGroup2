@@ -1,7 +1,9 @@
 package by.itacademy.jd2.messagetask.controller.api;
+
 import by.itacademy.jd2.messagetask.dto.UserDtoWithoutDate;
 import by.itacademy.jd2.messagetask.service.api.IUserService;
 import by.itacademy.jd2.messagetask.service.factories.UserServiceSingleton;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +15,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-
 @WebServlet(name = "UserServlet", urlPatterns = "/api/user")
-    public class UserServlet  extends HttpServlet {
+public class UserServlet extends HttpServlet {
 
     private final String LOGIN_PARAM = "login";
     private final String PASSWORD_PARAM = "password";
@@ -50,25 +51,25 @@ import java.time.format.DateTimeFormatter;
         }
     }
 
-        public String getValue (HttpServletRequest req, String key){
-            String val = req.getParameter(key);
-            if (val == null) {
-                HttpSession session = req.getSession();
-                if (!session.isNew()) {
-                    val = (String) session.getAttribute(key);
-                }
-            }
-            if (val == null) {
-                throw new IllegalArgumentException("Please input parameters");
-            }
-            return val;
-        }
-
-        private void saveSession (HttpServletRequest req, String key, UserDtoWithoutDate user){
+    public String getValue(HttpServletRequest req, String key) {
+        String val = req.getParameter(key);
+        if (val == null) {
             HttpSession session = req.getSession();
-            session.setAttribute(key, user);
+            if (!session.isNew()) {
+                val = (String) session.getAttribute(key);
+            }
         }
+        if (val == null) {
+            throw new IllegalArgumentException("Please input parameters");
+        }
+        return val;
     }
+
+    private void saveSession(HttpServletRequest req, String key, UserDtoWithoutDate user) {
+        HttpSession session = req.getSession();
+        session.setAttribute(key, user);
+    }
+}
 
 
 

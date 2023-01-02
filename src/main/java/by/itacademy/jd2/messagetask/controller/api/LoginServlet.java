@@ -19,8 +19,8 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
-    public static final String TAB = ",  ";
-    public static final String UI = "ui";
+    private static final String TAB = ",  ";
+    private static final String UI = "ui";
     private final IUserService userService = UserServiceSingleton.getINSTANCE();
 
 
