@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -32,19 +30,23 @@ public class UiServlet extends HttpServlet {
     private final IStatisticsService statisticsService = StatisticsServiceSingleton.getInstance();
 
     private final IMessageService messageService = MessageServiceSingleton.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        ViewPage viewPage = parseURI(req.getRequestURI(),req.getContextPath());
+        ViewPage viewPage = parseURI(req.getRequestURI(), req.getContextPath());
         try {
             switch (viewPage) {
                 case SIGN_UP: {
                     req.getRequestDispatcher("/view/signUp.jsp").forward(req, resp);
+                    break;
                 }
                 case SIGN_IN: {
                     req.getRequestDispatcher("/view/signIn.jsp").forward(req, resp);
+                    break;
                 }
                 case USER_MESSAGE: {
                     req.getRequestDispatcher("/view/message.jsp").forward(req, resp);
+                    break;
                 }
                 case USER_CHATS: {
                     UserDto user = (UserDto) req.getSession().getAttribute("user");
@@ -54,14 +56,17 @@ public class UiServlet extends HttpServlet {
                     }
                     req.setAttribute("messages", list);
                     req.getRequestDispatcher("/view/chats.jsp").forward(req, resp);
+                    break;
                 }
                 case ADMIN_STATISTICS: {
                     StatisticsDto statistics = statisticsService.getStatistics();
                     req.setAttribute("statistics", statistics);
                     req.getRequestDispatcher("/view/statistics.jsp").forward(req, resp);
+                    break;
                 }
                 case WELCOME: {
                     req.getRequestDispatcher("/view/welcome.jsp").forward(req, resp);
+                    break;
                 }
             }
         } catch (ServletException | IOException e) {
@@ -70,8 +75,8 @@ public class UiServlet extends HttpServlet {
     }
 
 
-    private ViewPage parseURI(String uri,String contextPath) {
-        String endpoint = uri.replace(contextPath,"");
+    private ViewPage parseURI(String uri, String contextPath) {
+        String endpoint = uri.replace(contextPath, "");
 
         boolean welcome = WELCOME_PATTERN.matcher(endpoint).matches();
         if (welcome) {
