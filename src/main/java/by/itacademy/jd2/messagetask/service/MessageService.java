@@ -15,11 +15,11 @@ public class MessageService implements IMessageService {
         this.dao = dao;
     }
 
-    public List<Message> get(String login){
+    public List<Message> get(String login) {
         return dao.get(login);
     }
 
-    public void add(MessageDto message){
+    public void add(MessageDto message) {
         dao.add(new Message(message));
     }
 

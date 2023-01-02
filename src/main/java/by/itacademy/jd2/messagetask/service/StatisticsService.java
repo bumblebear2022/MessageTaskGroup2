@@ -13,11 +13,11 @@ public class StatisticsService implements IStatisticsService {
     private final IMessageService messageService = MessageServiceSingleton.getInstance();
     private final IUserService userService = UserServiceSingleton.getINSTANCE();
 
-    public StatisticsDto getStatistics(){
+    public StatisticsDto getStatistics() {
         int registeredUsers = userService.userQuantity();
         int messages = messageService.userQuantity();
         int activeUserQuantity = ActiveUserListener.getQuantity();
-        return new StatisticsDto(registeredUsers,activeUserQuantity,messages);
+        return new StatisticsDto(registeredUsers, activeUserQuantity, messages);
     }
 
 }

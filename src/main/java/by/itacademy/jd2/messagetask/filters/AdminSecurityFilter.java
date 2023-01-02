@@ -17,6 +17,9 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/ui/admin/*", "/api/admin/*"})
 public class AdminSecurityFilter implements Filter {
+
+    public static final String USER = "user";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -26,18 +29,23 @@ public class AdminSecurityFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
-        if ((session != null) && (session.getAttribute("user") != null)) {
-            UserDto userDto = (UserDto) session.getAttribute("user");
-            if(userDto.getUserRole().equals(UserRole.ADMIN)){
-                chain.doFilter(request, response);
-            }else {
-                resp.sendRedirect(contextPath + "/signIn");
-            }
-        } else {
-            resp.sendRedirect(contextPath + "/signIn");
+        if (session == null
+                || session.getAttribute(USER) == null) {
+            redirectToSignIn(req, resp);
+            return;
         }
+        UserDto userDto = (UserDto) session.getAttribute(USER);
+        if (userDto.getUserRole() != UserRole.ADMIN) {
+            redirectToSignIn(req, resp);
+            return;
+        }
+        chain.doFilter(request, response);
+    }
+
+    private void redirectToSignIn(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String contextPath = req.getContextPath();
+        resp.sendRedirect(contextPath + "/ui/signIn");
     }
 
     @Override

@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto get(String login, String password) {
-        validate(login,password);
+        validate(login, password);
         return userDao.validateUser(login, password);
     }
 
@@ -35,7 +35,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean validate(String login,String password) {
+    public boolean validate(String login, String password) {
         List<String> errors = new ArrayList<>();
         boolean isUserExist = userDao.exist(login);
         if (!isUserExist) {
@@ -47,11 +47,13 @@ public class UserService implements IUserService {
         }
         if (!errors.isEmpty()) {
             throw new UserValidateException(errors);
-        }else return true;
+        } else {
+            return true;
+        }
     }
 
     @Override
-    public boolean exist(String login){
+    public boolean exist(String login) {
         return userDao.exist(login);
     }
 
@@ -60,13 +62,14 @@ public class UserService implements IUserService {
         User user = mapUserDtoWithoutDateToUser(userDtoWithoutDate);
         userDao.add(user);
     }
-    private User mapUserDtoWithoutDateToUser(UserDtoWithoutDate userDtoWithoutDate){
+
+    private User mapUserDtoWithoutDateToUser(UserDtoWithoutDate userDtoWithoutDate) {
         String login = userDtoWithoutDate.getLogin();
         String password = userDtoWithoutDate.getPassword();
         String fullName = userDtoWithoutDate.getFullName();
         LocalDate birthDate = userDtoWithoutDate.getBirthDate();
         UserRole userRole = userDtoWithoutDate.getUserRole();
         LocalDate localDate = LocalDate.now();
-        return new User(login,password,fullName,birthDate,localDate,userRole);
+        return new User(login, password, fullName, birthDate, localDate, userRole);
     }
 }

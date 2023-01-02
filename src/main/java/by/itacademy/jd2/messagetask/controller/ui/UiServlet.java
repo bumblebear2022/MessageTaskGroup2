@@ -26,9 +26,7 @@ public class UiServlet extends HttpServlet {
     private static final Pattern USER_MESSAGE_PATTERN = Pattern.compile("^/ui/user/message$");
     private static final Pattern USER_CHATS_PATTERN = Pattern.compile("^/ui/user/chats$");
     private static final Pattern ADMIN_STATISTICS_PATTERN = Pattern.compile("^/ui/admin/statistics$");
-
     private final IStatisticsService statisticsService = StatisticsServiceSingleton.getInstance();
-
     private final IMessageService messageService = MessageServiceSingleton.getInstance();
 
     @Override
