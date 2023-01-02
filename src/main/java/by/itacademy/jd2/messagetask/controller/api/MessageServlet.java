@@ -58,22 +58,33 @@ import java.util.List;
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         UserDto user = (UserDto) session.getAttribute("user");
-        if (user == null) {
-            throw new ServletException();
-        }
         resp.setContentType("text/html; charset=UTF-8");
         PrintWriter writer = resp.getWriter();
         String text = req.getParameter("Text");
         String forWhom = req.getParameter("To");
-        if (text != null && forWhom != null) {
-            if (userService.exist(forWhom)) {
-                messageService.add(new MessageDto(user.getLogin(), forWhom, text));
-                writer.write("<br><span style='color: MidnightBlue;'> Ваше сообщение отправлено! </span><br>");
+        if (req.getParameter("messageLock") != null) {
+            if (text != null && forWhom != null) {
+                if (userService.exist(forWhom)) {
+                    messageService.add(new MessageDto(user.getLogin(), forWhom, text));
+                    session.setAttribute("messageLock", "Ваше сообщение отправлено!");
+                } else {
+                    session.setAttribute("messageLock", "Пользователя не существует!");
+                }
             } else {
-                writer.write("<br><span style='color: MidnightBlue;'> Пользователя не существует! </span><br>");
+                session.setAttribute("messageLock", "Не хватает данных о получателе или тексте сообщения!");
             }
+            req.getRequestDispatcher("/view/message.jsp").forward(req, resp);
         } else {
-            writer.write("<br><span style='color: MidnightBlue;'> Не хватает данных о получателе или тексте сообщения! </span><br>");
+            if (text != null && forWhom != null) {
+                if (userService.exist(forWhom)) {
+                    messageService.add(new MessageDto(user.getLogin(), forWhom, text));
+                    writer.write("<br><span style='color: MidnightBlue;'> Ваше сообщение отправлено! </span><br>");
+                } else {
+                    writer.write("<br><span style='color: MidnightBlue;'> Пользователя не существует! </span><br>");
+                }
+            } else {
+                writer.write("<br><span style='color: MidnightBlue;'> Не хватает данных о получателе или тексте сообщения! </span><br>");
+            }
         }
     }
 }

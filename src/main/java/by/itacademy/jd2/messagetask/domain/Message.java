@@ -4,6 +4,8 @@ import by.itacademy.jd2.messagetask.dto.MessageDto;
 import by.itacademy.jd2.messagetask.dto.UserDto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Message {
     private final LocalDateTime sendDateTime;
