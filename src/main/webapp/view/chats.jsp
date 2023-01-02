@@ -14,7 +14,7 @@ Messages: <br/><br/>
 <h1>
 <c:choose>
   <c:when test="${empty messages}">
-    <p>You have no messages yet)</p>
+    <p>You have no messages yet</p>
   </c:when>
   <c:otherwise>
    <c:forEach items="${messages}" var="message">

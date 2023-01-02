@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Отправка сообщений</title>
+    <title>Sending messages</title>
 </head>
 <body>
 <c:choose>
