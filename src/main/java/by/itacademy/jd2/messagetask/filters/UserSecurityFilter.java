@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-@WebFilter(urlPatterns = {"/ui/user/*","/api/message"})
+
+@WebFilter(urlPatterns = {"/ui/user/*", "/api/message"})
 public class UserSecurityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,10 +26,10 @@ public class UserSecurityFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         String contextPath = req.getContextPath();
         HttpSession session = req.getSession();
-        if((session!=null)&&(session.getAttribute("user")!=null)){
-            chain.doFilter(request,response);
-        }else {
-            resp.sendRedirect(contextPath+"/signIn");
+        if ((session != null) && (session.getAttribute("user") != null)) {
+            chain.doFilter(request, response);
+        } else {
+            resp.sendRedirect(contextPath + "/ui/signIn");
         }
     }
 
