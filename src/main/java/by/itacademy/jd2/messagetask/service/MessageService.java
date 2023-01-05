@@ -25,7 +25,7 @@ public class MessageService implements IMessageService {
 
 
     @Override
-    public int userQuantity() {
+    public int messageQuantity() {
         return dao.messageQuantity();
     }
 }

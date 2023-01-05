@@ -15,7 +15,7 @@ public class StatisticsService implements IStatisticsService {
 
     public StatisticsDto getStatistics() {
         int registeredUsers = userService.userQuantity();
-        int messages = messageService.userQuantity();
+        int messages = messageService.messageQuantity();
         int activeUserQuantity = ActiveUserListener.getQuantity();
         return new StatisticsDto(registeredUsers, activeUserQuantity, messages);
     }

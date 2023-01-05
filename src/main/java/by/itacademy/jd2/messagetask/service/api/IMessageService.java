@@ -11,5 +11,5 @@ public interface IMessageService {
 
     void add(MessageDto message);
 
-    int userQuantity();
+    int messageQuantity();
 }

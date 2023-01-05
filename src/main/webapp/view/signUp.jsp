@@ -6,6 +6,7 @@
 
 <body>
 <form method="post" action="${pageContext.request.contextPath}/api/user">
+    <h1>Please, Sign Up: </h1>
 
     <label for="userLogin">Login:</label>
     <input id="userLogin" type="text" name="login" >
@@ -17,7 +18,7 @@
     <input id="userFullName" type="text" name="fullName">
 
     <label for="userBirthday">Birthday:</label>
-    <input id="userBirthday" type="text" name="birthday">
+    <input id="userBirthday" placeholder="dd/mm/yyyy" type="text" name="birthday">
 
     <button style="margin-top: 20px" type="submit">SignUp</button>
 </form>
